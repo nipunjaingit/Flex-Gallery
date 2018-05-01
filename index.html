@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <title>Clock</title>
+        <style>
+            html{
+                background-color: darkred;
+                background-size: cover;
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: center;
+                font-size: 20px;
+            }
+
+            body{
+                display: flex;
+                flex: 1;
+                min-height: 100vh;
+                align-items: center;
+            }
+
+            .clock{
+                width: 300px;
+                height: 300px;
+                border: 20px solid white;
+                border-radius: 50%;
+                margin: 50px auto;
+                position: relative;
+                padding: 20px;
+                box-shadow: 
+                    0 0 0px 4px rgba(0, 0, 0, 0.1),
+                    inset 0 0 0 3px #efefef,
+                    inset 0 0 10px black,
+                    0 0 10px rgba(0, 0, 0, 0.2); 
+            }
+            .clock-face{
+                position: relative;
+                width: 100%;
+                height: 100%;
+                transform: translateY(-3px);
+            }
+
+            .hand{
+                width: 50%;
+                height: 6px;
+                background: black;
+                position: absolute;
+                top: 50%;
+                transform-origin: 100%;
+                transform: rotate(90deg);
+                transition: all 0.05s;
+                transition-timing-function: cubic-bezier(1,.24,0,1.96);
+            }
+
+            .hour-hand{
+                width: 30%;
+                left: 20%;
+                background: peru;
+            }
+
+            .min-hand{
+                width: 40%;
+                left: 10%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="clock">
+            <div class="clock-face">
+                <div class="hand hour-hand"></div>
+                <div class="hand min-hand"></div>
+                <div class="hand sec-hand"></div>
+            </div>
+        </div>
+
+        <script>
+            
+            const secondHand = document.querySelector('.hand.sec-hand');
+            
+            const minuteHand = document.querySelector('.hand.min-hand');
+
+            const hourHand = document.querySelector('.hand.hour-hand');
+
+            function setDate(){
+                const now = new Date();
+                const seconds = now.getSeconds();
+                const secondsDegrees = ((seconds/60)*360)+90;
+                secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+                
+                const mins = now.getMinutes();
+                const minsDegrees = ((mins/60)*360)+90;
+                minuteHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+                const hours = now.getHours();
+                const hoursDegrees = ((hours/60)*360)+90;
+                hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+                
+
+            }
+            
+            setInterval(setDate, 1000);
+
+        </script>
+    </body>
+</html>
